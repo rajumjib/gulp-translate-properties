@@ -1,0 +1,31 @@
+{
+  "name": "gulp-translate-properties",
+  "version": "1.0.0",
+  "description": "Gulp plugin to translate java property(.properties) files for localization",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rajumjib/gulp-translate-properties.git"
+  },
+  "keywords": [
+    "Gulp",
+    "Translate",
+    "Localization",
+    "Property",
+    "Java"
+  ],
+  "author": "Jahirul Islam Bhuiyan",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/rajumjib/gulp-translate-properties/issues"
+  },
+  "homepage": "https://github.com/rajumjib/gulp-translate-properties#readme",
+  "dependencies": {
+    "google-translate": "^2.0.5",
+    "gulp": "^3.9.1",
+    "gulp-foreach": "^0.1.0"
+  }
+}
