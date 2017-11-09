@@ -1,5 +1,6 @@
 'use strict';
 
+var os = require('os');
 var through2 = require('through2');
 var apiKey = '';
 var googleTranslate = require('google-translate')(apiKey);
@@ -9,12 +10,23 @@ var _ = require('underscore')._;
 function translateLanguage(opts) {
   opts = opts || {};
   opts.cwd = opts.cwd || process.cwd();
+  
+  if(!opts.APIKey){
+  
+    return;
+  }
+  opts.translateFrom = opts.translateFrom || 'en';
+  if(!opts.translateTo){
+  
+    return;
+  }
+  opts.lineEnding= opts.lineEnding || os.EOL; /*'\r\n';*/
 
 
   function translateFile(file, encoding, callback) {
     var fileContent = file.contents;
     var buffer = fileContent.toString();
-    var lines = buffer.split('\r\n');
+    var lines = buffer.split(opts.lineEnding);
 
     var lineList = [];
     var lineProccessedList = [];
@@ -25,7 +37,7 @@ function translateLanguage(opts) {
     };
 
     if (lineList.length > 0 && lineProccessedList.length > 0) {
-      googleTranslate.translate(lineProccessedList, 'en', opts.translateTo, function (err, translation) {
+      googleTranslate.translate(lineProccessedList, opts.translateFrom, opts.translateTo, function (err, translation) {
         if (err) {
           console.log(err);
           callback(null, file);
@@ -41,9 +53,9 @@ function translateLanguage(opts) {
         var fileString = '';
         for (var i = 0; i < lineList.length; i++) {
           if (lineList[i].lineText) {
-            fileString += lineList[i].lineKey + '=' + toUnicode(lineList[i].lineText) + '\r\n';
+            fileString += lineList[i].lineKey + '=' + toUnicode(lineList[i].lineText) + opts.lineEnding;
           } else {
-            fileString += lineList[i].lineKey + '\r\n';
+            fileString += lineList[i].lineKey + opts.lineEnding;
           }
         };
 
