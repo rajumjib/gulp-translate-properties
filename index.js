@@ -2,8 +2,6 @@
 
 var os = require('os');
 var through2 = require('through2');
-var apiKey = '';
-var googleTranslate = require('google-translate')(apiKey);
 var readable = require('stream').Readable;
 var _ = require('underscore')._;
 
@@ -22,6 +20,7 @@ function translateLanguage(opts) {
   }
   opts.lineEnding= opts.lineEnding || os.EOL; /*'\r\n';*/
 
+  var googleTranslate = require('google-translate')(opts.APIKey);
 
   function translateFile(file, encoding, callback) {
     var fileContent = file.contents;
