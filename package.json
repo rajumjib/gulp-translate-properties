@@ -1,6 +1,6 @@
 {
   "name": "gulp-translate-properties",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Gulp plugin to translate java property(.properties) files for localization",
   "main": "index.js",
   "scripts": {
@@ -17,7 +17,10 @@
     "Property",
     "Java"
   ],
-  "author": ["Jahirul Islam Bhuiyan", "Monirul Islam"],
+  "author": [
+    "Jahirul Islam Bhuiyan",
+    "Monirul Islam"
+  ],
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/rajumjib/gulp-translate-properties/issues"
