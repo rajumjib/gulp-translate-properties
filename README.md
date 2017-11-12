@@ -43,7 +43,11 @@ Options
             .pipe(gulp.dest('dist'));
     });
 
-  
+
+# Sample
+
+Check [sample code](https://github.com/rajumjib/samples-gulp).
+
 # To Contribute
 
 Please fork and send pull request, welcome!
