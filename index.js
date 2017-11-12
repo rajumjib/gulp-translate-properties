@@ -2,8 +2,6 @@
 
 var os = require('os');
 var through2 = require('through2');
-var apiKey = '';
-var googleTranslate = require('google-translate')(apiKey);
 var readable = require('stream').Readable;
 var _ = require('underscore')._;
 
@@ -22,6 +20,7 @@ function translateLanguage(opts) {
   }
   opts.lineEnding= opts.lineEnding || os.EOL; /*'\r\n';*/
 
+  var googleTranslate = require('google-translate')(opts.APIKey);
 
   function translateFile(file, encoding, callback) {
     var fileContent = file.contents;
@@ -53,16 +52,17 @@ function translateLanguage(opts) {
         var fileString = '';
         for (var i = 0; i < lineList.length; i++) {
           if (lineList[i].lineText) {
-            fileString += lineList[i].lineKey + '=' + toUnicode(lineList[i].lineText) + opts.lineEnding;
+            fileString += lineList[i].lineKey + '=' + lineList[i].lineText + opts.lineEnding;
           } else {
             fileString += lineList[i].lineKey + opts.lineEnding;
           }
         };
 
-        var readableStream = new readable;
-        readableStream.push(fileString);
-        readableStream.push(null);
-        file.contents = readableStream;
+        //var readableStream = new readable;
+        //readableStream.push(fileString);
+        //readableStream.push(null);
+        //file.contents = readableStream;
+        file.contents = new Buffer(fileString);
         callback(null, file);
       });
     } else {

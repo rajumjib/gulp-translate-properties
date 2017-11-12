@@ -1,5 +1,6 @@
 'use strict';
 
+var os = require('os');
 var through2 = require('through2');
 var readable = require('stream').Readable;
 
@@ -7,25 +8,28 @@ function convertToUnicode(opts) {
   opts = opts || {};
   opts.cwd = opts.cwd || process.cwd();
 
+  opts.lineEnding= opts.lineEnding || os.EOL; /*'\r\n';*/
+
   function processFile(file, encoding, callback) {
     var fileContent = file.contents;
     var buffer = fileContent.toString();
-    var lines = buffer.split('\r\n');
+    var lines = buffer.split(opts.lineEnding);
 
     var fileString = '';
     for (var i = 0; i < lines.length; i++) {
       var properties = lines[i].split('=');
       if (properties[1]) {
-        fileString += properties[0] + '=' + toUnicode(properties[1]) + '\r\n';
+        fileString += properties[0] + '=' + toUnicode(properties[1]) + opts.lineEnding;
       } else {
-        fileString += properties[0] + '\r\n';
+        fileString += properties[0] + opts.lineEnding;
       }
     };
 
-    var readableStream = new readable;
-    readableStream.push(fileString);
-    readableStream.push(null);
-    file.contents = readableStream;
+    //var readableStream = new readable;
+    //readableStream.push(fileString);
+    //readableStream.push(null);
+    //file.contents = readableStream;
+    file.contents = new Buffer(fileString);
     callback(null, file);
   }
 
