@@ -1,6 +1,6 @@
 {
   "name": "gulp-translate-properties",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "description": "Gulp plugin to translate java property(.properties) files for localization",
   "main": "index.js",
   "scripts": {
