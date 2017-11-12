@@ -52,16 +52,17 @@ function translateLanguage(opts) {
         var fileString = '';
         for (var i = 0; i < lineList.length; i++) {
           if (lineList[i].lineText) {
-            fileString += lineList[i].lineKey + '=' + toUnicode(lineList[i].lineText) + opts.lineEnding;
+            fileString += lineList[i].lineKey + '=' + lineList[i].lineText + opts.lineEnding;
           } else {
             fileString += lineList[i].lineKey + opts.lineEnding;
           }
         };
 
-        var readableStream = new readable;
-        readableStream.push(fileString);
-        readableStream.push(null);
-        file.contents = readableStream;
+        //var readableStream = new readable;
+        //readableStream.push(fileString);
+        //readableStream.push(null);
+        //file.contents = readableStream;
+        file.contents = new Buffer(fileString);
         callback(null, file);
       });
     } else {
